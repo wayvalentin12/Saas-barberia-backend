@@ -20,23 +20,6 @@ async def read_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-@router.post("/", response_model=UserResponse, status_code=201)
-async def create_user(payload: UserDB, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    user = User(
-        name=payload.name,
-        email=payload.email,
-        password=hash_password(payload.password),
-        role=payload.role,
-        negocio_id=payload.negocio_id
-    )
-    db.add(user)
-    try:
-        db.commit()
-        db.refresh(user)
-    except IntegrityError:
-        db.rollback()
-        raise HTTPException(status_code=400, detail="Email already registered")
-    return user
 
 @router.put("/{user_id}", response_model=UserResponse)
 async def update_user(user_id: int, payload: UserUpdate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
