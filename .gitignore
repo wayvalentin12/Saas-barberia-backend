@@ -1,1 +1,41 @@
+# Variables de entorno
 .env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Entorno virtual (tienes pyvenv.cfg → tu venv está en la raíz)
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Alembic (versiones autogeneradas si no quieres subirlas)
+# migrations/versions/
+
+# pytest y cobertura
+.pytest_cache/
+htmlcov/
+.coverage
+coverage/
+
+# Logs
+*.log
+logs/
+
+# Base de datos local
+*.db
+*.sqlite3
+
+# IDEs
+.idea/
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
