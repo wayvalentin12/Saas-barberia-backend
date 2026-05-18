@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class NegocioCreate(BaseModel):
@@ -17,6 +17,7 @@ class BarberCreate(BaseModel):
     name: str
     email: str
     password: str
+    role: str
     negocio_id: int
 
 class BarberResponse(BarberCreate):
@@ -25,6 +26,13 @@ class BarberResponse(BarberCreate):
     model_config = {
         "from_attributes": True
     }
+
+class BarberUpdate(BaseModel):
+    name: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+    role: Optional[str] = None
+    negocio_id: Optional[int] = None
 
 class UserBase(BaseModel):
     name: str
@@ -54,7 +62,6 @@ class AppointmentCreate(BaseModel):
     date_time: datetime
     service: str
     barber_id: int
-
     model_config = {
         "from_attributes": True
     }

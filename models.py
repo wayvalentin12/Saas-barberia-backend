@@ -22,6 +22,7 @@ class Barber(base):
     name = Column(String(50), index=True, nullable=False)
     email = Column(String(50), unique=True, index=True)
     password = Column(String(300), nullable=False)
+    role = Column(String(20), nullable=False, default="barbero")
     negocio_id = Column(Integer, ForeignKey("negocios.id"), nullable=False)
 
 class Appointment(base):
