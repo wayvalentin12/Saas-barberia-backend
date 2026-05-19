@@ -1,6 +1,6 @@
 from jose import jwt, JWTError
 from datetime import datetime, timedelta, timezone
-from models import User
+from models import User, Barber
 from database import get_db
 import os
 from dotenv import load_dotenv
@@ -43,6 +43,9 @@ def verify_password(plain_password: str, hashed_password: str):
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     email = verify_token(token)
     user = db.query(User).filter(User.email == email).first()
-    if user is None:
-        raise JWTError("User not found")
-    return user
+    if user:
+        return user
+    barber = db.query(Barber).filter(Barber.email == email).first()
+    if barber:
+        return barber
+    raise JWTError("User not found")
